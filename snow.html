@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+  margin: 0;
+  overflow: hidden; /* Để tuyết không bị cuộn */
+  background-color: black;
+}
+
+.snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Để không cản trở các tương tác khác */
+}
+
+.snowflake {
+  position: absolute;
+  top: -10px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  opacity: 0.8;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.christmas-tree {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000; /* Luôn hiển thị phía trên */
+}
+
+.christmas-tree img {
+  width: 100px;
+  height: auto;
+}
+
+
+</style>
+<body>
+    <div class="snow">
+
+    <div class="christmas-tree">
+        <img src="../img/tree.webp" alt="Christmas Tree" />
+      </div>
+    </div>
+</body>
+<script>
+    function createSnowflake() {
+  const snowflake = document.createElement('div');
+  snowflake.classList.add('snowflake');
+
+  // Tạo kích thước và vị trí ngẫu nhiên
+  const size = Math.random() * 10 + 5 + 'px';
+  const position = Math.random() * window.innerWidth + 'px';
+  const duration = Math.random() * 5 + 5 + 's';
+
+  snowflake.style.width = size;
+  snowflake.style.height = size;
+  snowflake.style.left = position;
+  snowflake.style.animationDuration = duration;
+
+  document.querySelector('.snow').appendChild(snowflake);
+
+  // Xóa bông tuyết sau khi rơi xong
+  setTimeout(() => {
+    snowflake.remove();
+  }, parseFloat(duration) * 1000);
+}
+
+// Tạo tuyết rơi liên tục
+setInterval(createSnowflake, 100);
+
+</script>
+
+</html>
